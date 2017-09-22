@@ -1,0 +1,17 @@
+@CHARSET "EUC-KR";
+ #login {
+      font-size: 20px;
+      color: white;
+      margin-right: 20px;
+    }
+    body {
+	background-color: #ffcccc;	
+    }
+    img{
+    margin: 50px;
+    padding-left: 100px;
+    }
+#Register {
+	padding-left: 550px;
+	padding-top: 10px;
+}
