@@ -17,16 +17,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class BlogLoginServlet
  */
-@WebServlet(name = "Login", urlPatterns = { "/Login" })
-public class LoginServlet extends HttpServlet {
+@WebServlet("/bloglogin")
+public class BlogLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {	
+    public BlogLoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,16 +35,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd =request.getRequestDispatcher("jsp/login.jsp");
-		rd.forward(request, response);
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("application/json;charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
 		request.setCharacterEncoding("utf-8");
@@ -53,42 +51,26 @@ public class LoginServlet extends HttpServlet {
 		System.out.printf("id : %s, pwd : %s\n",id, pwd);
 		
 		//id ,pwd 사용자 인증 체크
-		boolean result= true;
 		
-		if(result){
+		if(id.equals("test@naver.com")){
 			HttpSession session = request.getSession();
 			UserVO user = new UserVO();
 			user.setId(id);
-			user.setName("홍길동");
-			user.setNickname("의적");
+			user.setName("이강진");
+
 			
 			session.setAttribute("user", user);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("jsp/home.jsp");
+		
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/main.jsp");
 			rd.forward(request, response);
 		} else{
 			request.setAttribute("msg", "error");
-			RequestDispatcher rd = request.getRequestDispatcher("jsp/login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/jsp/main.jsp");
 			rd.forward(request, response);
 		}
 		
-		out.println("{");
-		out.println("\"id\" : " +"\""+ id+"\"");
-		out.println("}");
 		
-		// GSON 사용	
-		Gson gson = new Gson();
-		JsonObject obj = new JsonObject();
-		obj.addProperty("id", id);
-		
-		//JSON Simple library 사용
-//		JSONObject json = new JSONObject();
-//		json.put("id", id);
-//		out.write(json.toJSONString());
-		
-		
-		
-		out.close();
+		System.out.println();
 	}
 
 }
